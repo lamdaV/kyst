@@ -4,13 +4,15 @@ const CONVERSION_FACTOR = 10 ** -18
 
 const findNKitties = (n) => {
   const client = new KystClient();
+  const kittyBaseUrl = "https://www.cryptokitties.co/kitty"
 
   const find = (found, offset, limit) => {
+    console.log(`found ${found} offset ${offset} limit ${limit}`)
     if (found >= n) {
-      return;
+      return Promise.resolve([]);
     }
 
-    client.getMedianPriceUSD()
+    return client.getMedianPriceUSD()
       .then((medianPriceUSD) => client.convertUSD2ETH(medianPriceUSD)
         .then((medianPriceETH) => client.getAuctions(offset, limit, "sale", "open")
           .then((response) => {
@@ -20,16 +22,18 @@ const findNKitties = (n) => {
                 return auction;
               })
               .filter((auction) => auction.eth <= medianPriceETH)
-              .map((buyAuction) => `https://www.cryptokitties.co/kitty/${buyAuction.kitty.id}`)
+              .map((buyAuction) => `${kittyBaseUrl}/${buyAuction.kitty.id}`)
           })
           .then((matchedUrls) => {
-            console.log(matchedUrls);
+            // console.log(matchedUrls);
             const discover = matchedUrls.length;
-            find(found + discover, offset + limit, limit);
+            return find(found + discover, offset + limit, limit)
+              .then((otherMatchedUrls) => matchedUrls.concat(otherMatchedUrls));
           })));
   }
 
-  find(0, 0, 10);
+  return find(0, 0, 10);
 }
 
-findNKitties(3);
+findNKitties(3)
+  .then((matchedUrls) => console.log(matchedUrls));
