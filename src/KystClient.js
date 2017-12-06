@@ -80,7 +80,7 @@ class KystClient {
     };
     return rp(options)
       .then((conversion) => conversion[0].price_usd)
-      .then((rate) => usd * rate);
+      .then((rate) => usd / rate);
   }
 }
 
