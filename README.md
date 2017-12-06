@@ -12,6 +12,8 @@ It is not hosted on `npm` yet. You will have to clone the repository or use the 
 Feel free to contribute. Fork the repository, make your changes, make a pull request with details of changes, and tag me in it.
 
 ## Docs:
+** NOTE ** All `KystClient` methods return a Promise.
+
 `KystClient.getAuctions(offset, limit, type, status)`
 
 Gets a list of Auction data from Cryptokitties.
