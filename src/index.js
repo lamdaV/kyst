@@ -22,7 +22,9 @@ const findNKitties = (n) => {
                 return auction;
               })
               .filter((auction) => auction.eth <= medianPriceETH)
-              .map((buyAuction) => `${kittyBaseUrl}/${buyAuction.kitty.id}`)
+              .map((buyAuction) => buyAuction.kitty)
+              .filter((buyKitty) => buyKitty.generation <= 8)
+              .map((buyKitty) => `${kittyBaseUrl}/${buyKitty.id}`)
           })
           .then((matchedUrls) => {
             // console.log(matchedUrls);
