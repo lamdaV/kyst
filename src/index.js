@@ -39,12 +39,10 @@ const findNKitties = (n) => {
               .map((buyKitty) => `${kittyBaseUrl}/${buyKitty.id}`)
           })
           .catch((error) => {
-            // console.log("[ ERROR ]", error.message);
             return sleep(5000)
               .then(() => find(found, offset, limit));
           })
           .then((matchedUrls) => {
-            // console.log(matchedUrls);
             const discover = matchedUrls.length;
             return find(found + discover, offset + limit, limit)
               .then((otherMatchedUrls) => matchedUrls.concat(otherMatchedUrls));
