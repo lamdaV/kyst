@@ -18,7 +18,6 @@ const findNKitties = (n) => {
   }
 
   const find = (found, offset, limit) => {
-    // console.log(`[ INFO ] found ${found} offset ${offset} limit ${limit}`);
     if (found >= n) {
       progressBar.update(n);
       return Promise.resolve([]);
@@ -55,7 +54,7 @@ const findNKitties = (n) => {
   return find(0, 0, 10);
 }
 
-findNKitties(2)
+findNKitties(10)
   .then((matchedUrls) => {
     console.log("\nFound Kitties: ");
     matchedUrls.forEach((matchedUrl) => console.log(matchedUrl))
