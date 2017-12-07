@@ -88,6 +88,13 @@ Helper method to convert `USD` to `ETH`.
 ##### Params:
 - `usd` - number of the `USD` value to convert
 
+`KystClient.getCAttributes()`
+
+Gets an Object of existing cattributes and their corresponding count from
+[cryptokittydex](https://cryptokittydex.com/).
+
+
 ## Dependencies:
 - [nieldlr cryptokitties dashboard](https://kittysales.herokuapp.com/)
 - [CoinMarketCap API](https://coinmarketcap.com/)
+- [cryptokittydex](https://cryptokittydex.com/)
