@@ -15,8 +15,8 @@ yarn add kyst
 This assumes you know nothing about programming.
 
 Steps:
-1. Install [NodeJS](https://nodejs.org/)
-2. Install [git](https://git-scm.com/)
+1. Install [NodeJS](https://nodejs.org/).
+2. Install [git](https://git-scm.com/).
 3. Open your command prompt by typing `cmd` in the search bar for Windows or
 Spotlight search `terminal` for OSX.
 4. Type `node -v` and `git --version`. You should see their respective version numbers.
