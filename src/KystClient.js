@@ -5,7 +5,7 @@ export const META_STATS_URL = "https://kittysales.herokuapp.com/data";
 export const EXCHANGE_URL = "https://api.coinmarketcap.com/v1/ticker/ethereum/"
 export const CONVERSION_FACTOR = 10 ** -18
 
-class KystClient {
+export class KystClient {
   getAuctions(offset, limit, type, status) {
     const options = {
         uri: `${DEFAULT_URL}/auctions`,
