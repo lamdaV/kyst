@@ -2,58 +2,44 @@ import rp from "request-promise";
 
 export const DEFAULT_URL = "https://api.cryptokitties.co";
 export const META_STATS_URL = "https://kittysales.herokuapp.com/data";
-export const EXCHANGE_URL = "https://api.coinmarketcap.com/v1/ticker/ethereum/"
+export const EXCHANGE_URL = "https://api.coinmarketcap.com/v1/ticker/ethereum"
 export const CONVERSION_FACTOR = 10 ** -18
 
 export class KystClient {
+  buildOptions(uri) {
+    return {
+      uri: uri,
+      headers: {
+        "User-Agent": "Request-Promise"
+      },
+      json: true
+    };
+  }
+
   getAuctions(offset, limit, type, status) {
-    const options = {
-        uri: `${DEFAULT_URL}/auctions`,
-        qs: {
-          offset: offset,
-          limit: limit,
-          type: type,
-          status: status
-        },
-        headers: {
-          "User-Agent": "Request-Promise"
-        },
-        json: true
+    let options = this.buildOptions(`${DEFAULT_URL}/auctions`);
+    options.qs = {
+      offset: offset,
+      limit: limit,
+      type: type,
+      status: status
     };
     return rp(options);
   }
 
   getKitty(kittyId) {
-    const options = {
-      uri: `${DEFAULT_URL}/kitties/${kittyId}`,
-      headers: {
-        "User-Agent": "Request-Promise"
-      },
-      json: true
-    };
+    let options = this.buildOptions(`${DEFAULT_URL}/kitties/${kittyId}`);
     return rp(options);
   }
 
   getUser(userAddress) {
-    const options = {
-      uri: `${DEFAULT_URL}/user/${userAddress}`,
-      headers: {
-        "User-Agent": "Request-Promise"
-      },
-      json: true
-    };
+    let options = this.buildOptions(`${DEFAULT_URL}/user/${userAddress}`);
     return rp(options);
   }
 
   getMetaData() {
-    const options = {
-      uri: META_STATS_URL,
-      qs: {
-        offset: 0,
-        count: 1
-      },
-      json: true
-    };
+    let options = this.buildOptions(META_STATS_URL);
+    options.qs = {offset: 0, count: 1};
     return rp(options);
   }
 
@@ -70,13 +56,8 @@ export class KystClient {
   }
 
   convertUSD2ETH(usd) {
-    const options = {
-      uri: EXCHANGE_URL,
-      qs: {
-        convert: "USD"
-      },
-      json: true
-    };
+    let options = this.buildOptions(EXCHANGE_URL);
+    options.qs = {convert: "USD"};
     return rp(options)
       .then((conversion) => conversion[0].price_usd)
       .then((rate) => usd / rate);
