@@ -37,5 +37,8 @@ const findNKitties = (n) => {
   return find(0, 0, 10);
 }
 
-findNKitties(3)
-  .then((matchedUrls) => console.log(matchedUrls));
+findNKitties(10)
+  .then((matchedUrls) => {
+    console.log("\nFound Kitties: ");
+    matchedUrls.forEach((matchedUrl) => console.log(matchedUrl))
+  });
