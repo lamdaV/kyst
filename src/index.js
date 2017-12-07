@@ -1,3 +1,5 @@
+const progress = require("cli-progress");
+
 const KystClient = require("./KystClient");
 
 const CONVERSION_FACTOR = 10 ** -18
@@ -6,16 +8,22 @@ const findNKitties = (n) => {
   const client = new KystClient();
   const kittyBaseUrl = "https://www.cryptokitties.co/kitty"
 
+  const progressFormat = "searching... [{bar}] {percentage}% | {value} / {total} | {duration}s"
+  const progressBar = new progress.Bar({format: progressFormat, stopOnComplete: true});
+  progressBar.start(n, 0);
+
   // source: https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
   const sleep = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   const find = (found, offset, limit) => {
-    console.log(`[ INFO ] found ${found} offset ${offset} limit ${limit}`)
+    // console.log(`[ INFO ] found ${found} offset ${offset} limit ${limit}`);
     if (found >= n) {
+      progressBar.update(n);
       return Promise.resolve([]);
     }
+    progressBar.update(found);
 
     return client.getMedianPriceUSD()
       .then((medianPriceUSD) => client.convertUSD2ETH(medianPriceUSD)
@@ -32,7 +40,7 @@ const findNKitties = (n) => {
               .map((buyKitty) => `${kittyBaseUrl}/${buyKitty.id}`)
           })
           .catch((error) => {
-            console.log("[ ERROR ]", error.message);
+            // console.log("[ ERROR ]", error.message);
             return sleep(5000)
               .then(() => find(found, offset, limit));
           })
@@ -47,7 +55,7 @@ const findNKitties = (n) => {
   return find(0, 0, 10);
 }
 
-findNKitties(10)
+findNKitties(2)
   .then((matchedUrls) => {
     console.log("\nFound Kitties: ");
     matchedUrls.forEach((matchedUrl) => console.log(matchedUrl))
