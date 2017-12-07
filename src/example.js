@@ -1,8 +1,5 @@
-const progress = require("cli-progress");
-
-const KystClient = require("./KystClient");
-
-const CONVERSION_FACTOR = 10 ** -18
+import * as progress from "cli-progress";
+import KystClient, {CONVERSION_FACTOR} from "../dist/KystClient";
 
 const findNKitties = (n) => {
   const client = new KystClient();

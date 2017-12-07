@@ -1,10 +1,9 @@
-const rp = require("request-promise");
+import rp from "request-promise";
 
-const DEFAULT_URL = "https://api.cryptokitties.co";
-const META_STATS_URL = "https://kittysales.herokuapp.com/data";
-const EXCHANGE_URL = "https://api.coinmarketcap.com/v1/ticker/ethereum/"
-
-const CONVERSION_FACTOR = 10 ** -18
+export const DEFAULT_URL = "https://api.cryptokitties.co";
+export const META_STATS_URL = "https://kittysales.herokuapp.com/data";
+export const EXCHANGE_URL = "https://api.coinmarketcap.com/v1/ticker/ethereum/"
+export const CONVERSION_FACTOR = 10 ** -18
 
 class KystClient {
   getAuctions(offset, limit, type, status) {
@@ -84,4 +83,4 @@ class KystClient {
   }
 }
 
-module.exports = KystClient;
+export default KystClient;

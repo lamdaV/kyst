@@ -2,15 +2,34 @@
   "name": "kyst",
   "version": "0.0.1",
   "description": "A Cryptokittie API wrapper.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "keywords": [
+    "cryptokitties",
+    "api",
+    "wrapper",
+    "promise"
+  ],
+  "homepage": "https://github.com/lamdaV/kyst",
+  "bugs": "https://github.com/lamdaV/kyst/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lamdaV/kyst"
   },
-  "author": "",
+  "main": "./dist/KystClient.js",
+  "scripts": {
+    "build": "babel ./src/KystClient.js --out-file ./dist/KystClient.js",
+    "example": "babel ./src/example.js --out-file ./dist/example.js",
+    "buildall": "npm run build && npm run example"
+  },
+  "author": "lamdav",
   "license": "MIT",
   "dependencies": {
     "cli-progress": "^1.6.0",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-minify": "^0.2.0"
   }
 }
