@@ -6,8 +6,13 @@ const findNKitties = (n) => {
   const client = new KystClient();
   const kittyBaseUrl = "https://www.cryptokitties.co/kitty"
 
+  // source: https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
+  const sleep = (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   const find = (found, offset, limit) => {
-    console.log(`found ${found} offset ${offset} limit ${limit}`)
+    console.log(`[ INFO ] found ${found} offset ${offset} limit ${limit}`)
     if (found >= n) {
       return Promise.resolve([]);
     }
@@ -25,6 +30,11 @@ const findNKitties = (n) => {
               .map((buyAuction) => buyAuction.kitty)
               .filter((buyKitty) => buyKitty.generation <= 8)
               .map((buyKitty) => `${kittyBaseUrl}/${buyKitty.id}`)
+          })
+          .catch((error) => {
+            console.log("[ ERROR ]", error.message);
+            return sleep(5000)
+              .then(() => find(found, offset, limit));
           })
           .then((matchedUrls) => {
             // console.log(matchedUrls);
